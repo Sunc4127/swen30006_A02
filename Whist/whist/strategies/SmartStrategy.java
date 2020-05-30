@@ -1,8 +1,13 @@
 package strategies;
 
+import ch.aplu.jcardgame.*;
+import java.util.Random;
+
 public class SmartStrategy implements IPlayStrategy {
     @Override
-    public void selectCard() {
-        System.out.println("Smart!!!!!");
+    public Card selectCard(Hand hand) {
+        Random random = null;
+        int x = random.nextInt(hand.getNumberOfCards());
+        return hand.get(x);
     }
 }

@@ -233,7 +233,6 @@ public class Whist extends CardGame {
 
 	public static void main(String[] args) {
 		IPlayStrategy randomStrategy = strategies.PlayStrategyFactory.getInstance().getPlayStrategy("random");
-		randomStrategy.selectCard();
 		new Whist();
 	}
 

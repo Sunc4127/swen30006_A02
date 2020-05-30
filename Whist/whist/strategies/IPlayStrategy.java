@@ -1,5 +1,6 @@
 package strategies;
+import ch.aplu.jcardgame.*;
 
 public interface IPlayStrategy {
-    public void selectCard();
+    public Card selectCard(Hand hand);
 }
