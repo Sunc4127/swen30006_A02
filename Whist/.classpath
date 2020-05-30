@@ -8,5 +8,6 @@
 	<classpathentry kind="src" path="whist"/>
 	<classpathentry kind="lib" path="/JGameGrid/lib/JGameGrid.jar"/>
 	<classpathentry kind="lib" path="whist/dist/lib/JGameGrid.jar"/>
+	<classpathentry excluding="whist/" kind="src" path=""/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
