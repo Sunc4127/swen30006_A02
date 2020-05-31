@@ -8,8 +8,8 @@ public class PlayStrategyFactory {
 
 
     public  IPlayStrategy getPlayStrategy(String playType) {
-        if (playType.equals("random")) {
-            playStrategy = new DumbStrategy();
+        if (playType.equals("Random")) {
+            playStrategy = new RandStrategy();
         } else if (playType.equals("Legal")) {
             playStrategy = new LegalStrategy();
         } else if (playType.equals("Smart")) {

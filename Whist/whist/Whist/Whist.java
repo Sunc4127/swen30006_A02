@@ -1,12 +1,13 @@
 package Whist;// Whist.Whist.java
 
 import Player.HumanPlayer;
+import Player.INPC;
 import ch.aplu.jcardgame.*;
 import ch.aplu.jgamegrid.*;
-import strategies.IPlayStrategy;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -53,7 +54,7 @@ public class Whist extends CardGame {
 	private Actor[] scoreActors = { null, null, null, null };
 	private final Location trickLocation = new Location(350, 350);
 	private final Location textLocation = new Location(350, 450);
-	private final int thinkingTime = 2000;
+	private final int thinkingTime = 100;
 	private Hand[] hands;
 	private Location hideLocation = new Location(-500, -500);
 	private Location trumpsActorLocation = new Location(50, 50);
@@ -88,22 +89,19 @@ public class Whist extends CardGame {
 		selected = card;
 	}
 
-	private void initRound() {
+	private INPC[] arrayNPC = null;
+
+	private void initRound() throws IOException {
 		hands = deck.dealingOut(nbPlayers, nbStartCards); // Last element of hands is leftover cards; these are ignored
 		for (int i = 0; i < nbPlayers; i++) {
 			hands[i].sort(Hand.SortType.SUITPRIORITY, true);
 		}
-//		// Set up human player for interaction
-//		CardListener cardListener = new CardAdapter() // Human Player plays card
-//		{
-//			public void leftDoubleClicked(Card card) {
-//				selected = card;
-//				hands[0].setTouchEnabled(false);
-//			}
-//		};
-//		hands[0].addCardListener(cardListener);
-		humanPlayer = new HumanPlayer(hands[0], selected);
-		//hands[0] = humanPlayer.getHands();
+
+
+		arrayNPC = Player.NPCFactory.getInstance().getNPC("whist/"+"legal.properties");
+		if (arrayNPC.length != 4)
+			humanPlayer = new HumanPlayer(hands[0], selected);
+
 		// graphics
 		RowLayout[] layouts = new RowLayout[nbPlayers];
 		for (int i = 0; i < nbPlayers; i++) {
@@ -114,10 +112,11 @@ public class Whist extends CardGame {
 			hands[i].setTargetArea(new TargetArea(trickLocation));
 			hands[i].draw();
 		}
-		// for (int i = 1; i < nbPlayers; i++) // This code can be used to visually hide
-		// the cards in a hand (make them face down)
-		// hands[i].setVerso(true);
-		// End graphics
+	}
+
+	private static Suit lead;
+	public static Suit getLeadSuit() {
+		return lead;
 	}
 
 	private Optional<Integer> playRound() { // Returns winner, if any
@@ -129,16 +128,18 @@ public class Whist extends CardGame {
 		Hand trick;
 		int winner;
 		Card winningCard;
-		Suit lead;
+		int location;
 		int nextPlayer = random.nextInt(nbPlayers); // randomly select player to lead for this round
 		for (int i = 0; i < nbStartCards; i++) {
 			trick = new Hand(deck);
 			selected = null;
-			if (0 == nextPlayer) { // Select lead depending on player type
+			location = nextPlayer;
+
+
+			if (0 == nextPlayer && arrayNPC.length != 4) { // Select lead depending on player type
 				humanPlayer.setHands(true);
-				//hands[0] = humanPlayer.getHands();
-				//hands[0].setTouchEnabled(true);
 				setStatus("Player 0 double-click on card to lead.");
+				location--;
 				while (null == selected)
 					delay(100);
 			} else {
@@ -160,17 +161,17 @@ public class Whist extends CardGame {
 				if (++nextPlayer >= nbPlayers)
 					nextPlayer = 0; // From last back to first
 				selected = null;
-				if (0 == nextPlayer) {
-					//hands[0].setTouchEnabled(true);
+				location = nextPlayer;
+				if (0 == nextPlayer && arrayNPC.length != 4) {
 					humanPlayer.setHands(true);
-					//hands[0] = humanPlayer.getHands();
+					location--;
 					setStatus("Player 0 double-click on card to follow.");
 					while (null == selected)
 						delay(100);
 				} else {
 					setStatusText("Player " + nextPlayer + " thinking...");
 					delay(thinkingTime);
-					selected = randomCard(hands[nextPlayer]);
+					selected = arrayNPC[location].getPlayStrategy().selectCard(hands[nextPlayer]);
 				}
 				// Follow with selected card
 				trick.setView(this, new RowLayout(trickLocation, (trick.getNumberOfCards() + 2) * trickWidth));
@@ -218,7 +219,7 @@ public class Whist extends CardGame {
 		return Optional.empty();
 	}
 
-	public Whist() {
+	public Whist() throws IOException {
 		super(700, 700, 30);
 		setTitle("Whist.Whist (V" + version + ") Constructed for UofM SWEN30006 with JGameGrid (www.aplu.ch)");
 		setStatusText("Initializing...");
@@ -233,8 +234,7 @@ public class Whist extends CardGame {
 		refresh();
 	}
 
-	public static void main(String[] args) {
-		IPlayStrategy randomStrategy = strategies.PlayStrategyFactory.getInstance().getPlayStrategy("random");
+	public static void main(String[] args) throws IOException {
 		new Whist();
 	}
 

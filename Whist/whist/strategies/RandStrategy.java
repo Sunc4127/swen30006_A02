@@ -4,7 +4,7 @@ import ch.aplu.jcardgame.*;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class DumbStrategy implements IPlayStrategy {
+public class RandStrategy implements IPlayStrategy {
     @Override
     public Card selectCard(Hand hand) {
         final Random random = ThreadLocalRandom.current();

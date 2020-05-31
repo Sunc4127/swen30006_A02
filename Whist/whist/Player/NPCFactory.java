@@ -1,23 +1,48 @@
 package Player;
 
-import strategies.DumbStrategy;
-import strategies.LegalStrategy;
-import strategies.SmartStrategy;
+import strategies.IPlayStrategy;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Properties;
 
 public class NPCFactory {
     private static NPCFactory instance;
-    private static IPlayer player = null;
+    private static INPC NPC = null;
+    private int randomNum = 0;
+    private int legalNum  = 0;
+    private int smartNum  = 0;
+    private int numNPC    = 0;
 
-    public IPlayer getPlayer(String playType) {
-        if (playType.equals("random")) {
-            player = new RandNPC();
-        } else if (playType.equals("Legal")) {
-            player = new LegalNPC();
-        } else if (playType.equals("Smart")) {
-            player = new SmartNPC();
+    public INPC[] getNPC(String fileName) throws IOException {
+
+        readPropertyFile(fileName);
+        int random = randomNum;
+        int legal  = legalNum;
+        int smart  = smartNum;
+
+        INPC[] arrayNPC = new INPC[numNPC];
+
+        for (int i = 0; i < numNPC; i++) {
+            if (random > 0 ) {
+                arrayNPC[i] = new RandNPC(strategies.PlayStrategyFactory.getInstance().getPlayStrategy("Random"));
+                continue;
+            }
+            if (legal > 0 ) {
+                arrayNPC[i] = new LegalNPC(strategies.PlayStrategyFactory.getInstance().getPlayStrategy("Legal"));
+                continue;
+            }
+            if (smart > 0 ) {
+                arrayNPC[i] = new SmartNPC(strategies.PlayStrategyFactory.getInstance().getPlayStrategy("Smart"));
+                continue;
+            }
         }
+        Collections.shuffle(Arrays.asList(arrayNPC));
 
-        return player;
+        return arrayNPC;
     }
 
 
@@ -25,5 +50,26 @@ public class NPCFactory {
         if (instance == null)
             instance = new NPCFactory();
         return instance;
+    }
+
+    private void readPropertyFile(String fileName) throws IOException {
+        Properties NPCProperties = new Properties();
+        FileReader inStream = null;
+        try {
+            inStream = new FileReader(fileName);
+            NPCProperties.load(inStream);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (inStream != null) {
+                inStream.close();
+            }
+        }
+        randomNum = Integer.parseInt(NPCProperties.getProperty("randomNum"));
+        legalNum  = Integer.parseInt(NPCProperties.getProperty("legalNum"));
+        smartNum  = Integer.parseInt(NPCProperties.getProperty("smartNum"));
+        numNPC    = Integer.parseInt(NPCProperties.getProperty("numNPC"));
     }
 }
