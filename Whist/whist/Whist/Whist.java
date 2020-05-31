@@ -1,5 +1,6 @@
-// Whist.java
+package Whist;// Whist.Whist.java
 
+import Player.HumanPlayer;
 import ch.aplu.jcardgame.*;
 import ch.aplu.jgamegrid.*;
 import strategies.IPlayStrategy;
@@ -11,16 +12,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 @SuppressWarnings("serial")
 public class Whist extends CardGame {
-
-	public enum Suit {
-		SPADES, HEARTS, DIAMONDS, CLUBS
-	}
-
-	public enum Rank {
-		// Reverse order of rank importance (see rankGreater() below)
-		// Order of cards is tied to card images
-		ACE, KING, QUEEN, JACK, TEN, NINE, EIGHT, SEVEN, SIX, FIVE, FOUR, THREE, TWO
-	}
 
 	final String trumpImage[] = { "bigspade.gif", "bigheart.gif", "bigdiamond.gif", "bigclub.gif" };
 
@@ -90,22 +81,29 @@ public class Whist extends CardGame {
 		addActor(scoreActors[player], scoreLocations[player]);
 	}
 
-	private Card selected;
+	private static Card selected;
+	private HumanPlayer humanPlayer;
+
+	public static void setCard(Card card) {
+		selected = card;
+	}
 
 	private void initRound() {
 		hands = deck.dealingOut(nbPlayers, nbStartCards); // Last element of hands is leftover cards; these are ignored
 		for (int i = 0; i < nbPlayers; i++) {
 			hands[i].sort(Hand.SortType.SUITPRIORITY, true);
 		}
-		// Set up human player for interaction
-		CardListener cardListener = new CardAdapter() // Human Player plays card
-		{
-			public void leftDoubleClicked(Card card) {
-				selected = card;
-				hands[0].setTouchEnabled(false);
-			}
-		};
-		hands[0].addCardListener(cardListener);
+//		// Set up human player for interaction
+//		CardListener cardListener = new CardAdapter() // Human Player plays card
+//		{
+//			public void leftDoubleClicked(Card card) {
+//				selected = card;
+//				hands[0].setTouchEnabled(false);
+//			}
+//		};
+//		hands[0].addCardListener(cardListener);
+		humanPlayer = new HumanPlayer(hands[0], selected);
+		//hands[0] = humanPlayer.getHands();
 		// graphics
 		RowLayout[] layouts = new RowLayout[nbPlayers];
 		for (int i = 0; i < nbPlayers; i++) {
@@ -137,7 +135,9 @@ public class Whist extends CardGame {
 			trick = new Hand(deck);
 			selected = null;
 			if (0 == nextPlayer) { // Select lead depending on player type
-				hands[0].setTouchEnabled(true);
+				humanPlayer.setHands(true);
+				//hands[0] = humanPlayer.getHands();
+				//hands[0].setTouchEnabled(true);
 				setStatus("Player 0 double-click on card to lead.");
 				while (null == selected)
 					delay(100);
@@ -161,7 +161,9 @@ public class Whist extends CardGame {
 					nextPlayer = 0; // From last back to first
 				selected = null;
 				if (0 == nextPlayer) {
-					hands[0].setTouchEnabled(true);
+					//hands[0].setTouchEnabled(true);
+					humanPlayer.setHands(true);
+					//hands[0] = humanPlayer.getHands();
 					setStatus("Player 0 double-click on card to follow.");
 					while (null == selected)
 						delay(100);
@@ -218,7 +220,7 @@ public class Whist extends CardGame {
 
 	public Whist() {
 		super(700, 700, 30);
-		setTitle("Whist (V" + version + ") Constructed for UofM SWEN30006 with JGameGrid (www.aplu.ch)");
+		setTitle("Whist.Whist (V" + version + ") Constructed for UofM SWEN30006 with JGameGrid (www.aplu.ch)");
 		setStatusText("Initializing...");
 		initScore();
 		Optional<Integer> winner;

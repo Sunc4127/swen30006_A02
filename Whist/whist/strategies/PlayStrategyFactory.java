@@ -2,9 +2,9 @@ package strategies;
 
 public class PlayStrategyFactory {
     
-    public IPlayStrategy playStrategy = null;
+    private static IPlayStrategy playStrategy = null;
 
-    public static  PlayStrategyFactory instance; 
+    private static  PlayStrategyFactory instance;
 
 
     public  IPlayStrategy getPlayStrategy(String playType) {
