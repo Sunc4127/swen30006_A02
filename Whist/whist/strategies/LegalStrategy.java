@@ -28,7 +28,6 @@ public class LegalStrategy implements IPlayStrategy {
             position = random.nextInt(hand.getNumberOfCards());
             return hand.get(position);
         } else {
-            System.out.println(y);
             position = random.nextInt(y);
             return cards[position];
         }

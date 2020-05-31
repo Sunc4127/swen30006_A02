@@ -1,6 +1,7 @@
 package Player;
 
 import strategies.IPlayStrategy;
+import strategies.PlayStrategyFactory;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -26,17 +27,19 @@ public class NPCFactory {
 
         INPC[] arrayNPC = new INPC[numNPC];
 
+        PlayStrategyFactory playStrategyFactory = strategies.PlayStrategyFactory.getInstance();
+
         for (int i = 0; i < numNPC; i++) {
             if (random > 0 ) {
-                arrayNPC[i] = new RandNPC(strategies.PlayStrategyFactory.getInstance().getPlayStrategy("Random"));
+                arrayNPC[i] = new RandNPC(playStrategyFactory.getPlayStrategy("Random"));
                 continue;
             }
             if (legal > 0 ) {
-                arrayNPC[i] = new LegalNPC(strategies.PlayStrategyFactory.getInstance().getPlayStrategy("Legal"));
+                arrayNPC[i] = new LegalNPC(playStrategyFactory.getPlayStrategy("Legal"));
                 continue;
             }
             if (smart > 0 ) {
-                arrayNPC[i] = new SmartNPC(strategies.PlayStrategyFactory.getInstance().getPlayStrategy("Smart"));
+                arrayNPC[i] = new SmartNPC(playStrategyFactory.getPlayStrategy("Smart"));
                 continue;
             }
         }
