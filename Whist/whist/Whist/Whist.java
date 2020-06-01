@@ -101,7 +101,7 @@ public class Whist extends CardGame {
 
 		readPropertyFile("whist/"+"legal.properties");
 
-		arrayNPC = Player.NPCFactory.getInstance().getNPC("whist/"+"legal.properties");
+		arrayNPC = Player.NPCFactory.getInstance().getNPC("whist/"+"smart.properties");
 		if (arrayNPC.length != 4)
 			humanPlayer = new HumanPlayer(hands[0], selected);
 
