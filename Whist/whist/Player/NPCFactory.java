@@ -32,14 +32,17 @@ public class NPCFactory {
         for (int i = 0; i < numNPC; i++) {
             if (random > 0 ) {
                 arrayNPC[i] = new RandNPC(playStrategyFactory.getPlayStrategy("Random"));
+                random--;
                 continue;
             }
             if (legal > 0 ) {
                 arrayNPC[i] = new LegalNPC(playStrategyFactory.getPlayStrategy("Legal"));
+                legal--;
                 continue;
             }
             if (smart > 0 ) {
                 arrayNPC[i] = new SmartNPC(playStrategyFactory.getPlayStrategy("Smart"));
+                smart--;
                 continue;
             }
         }
