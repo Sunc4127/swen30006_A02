@@ -46,7 +46,7 @@ public class NPCFactory {
                 continue;
             }
         }
-        Collections.shuffle(Arrays.asList(arrayNPC));
+        //Collections.shuffle(Arrays.asList(arrayNPC));
 
         return arrayNPC;
     }

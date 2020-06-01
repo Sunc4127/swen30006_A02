@@ -62,6 +62,20 @@ public class Whist extends CardGame {
 	private Location trumpsActorLocation = new Location(50, 50);
 	private boolean enforceRules = false;
 
+	/** cards that had been played */
+	private  static ArrayList<Card> cardPlayed = new ArrayList<>();
+
+	/** recently played cards */
+	private static ArrayList<Card> cardOnTable = new ArrayList<>();
+
+	public static ArrayList<Card> getCardPlayed(){
+		return cardPlayed;
+	}
+
+	public static ArrayList<Card> getCardOnTable(){
+		return cardOnTable;
+	}
+
 	public void setStatus(String string) {
 		setStatusText(string);
 	}
@@ -136,20 +150,29 @@ public class Whist extends CardGame {
 		thinkingTime = Integer.parseInt(whistProperties.getProperty("thinkingTime"));
 	}
 
-	private static Suit lead;
+	private static Suit lead = null;
 	public static Suit getLeadSuit() {
 		return lead;
 	}
 
+	private static Suit trumps = null;
+	public static Suit getTrumps(){
+		return trumps;
+	}
+
+	private static Card winningCard = null;
+	public static Card getWinningCard(){
+		return winningCard;
+	}
+
 	private Optional<Integer> playRound() { // Returns winner, if any
 		// Select and display trump suit
-		final Suit trumps = randomEnum(Suit.class);
+		trumps = randomEnum(Suit.class);
 		final Actor trumpsActor = new Actor("sprites/" + trumpImage[trumps.ordinal()]);
 		addActor(trumpsActor, trumpsActorLocation);
 		// End trump suit
 		Hand trick;
 		int winner;
-		Card winningCard;
 
 		int nextPlayer = random.nextInt(nbPlayers); // randomly select player to lead for this round
 		for (int i = 0; i < nbStartCards; i++) {
@@ -179,6 +202,8 @@ public class Whist extends CardGame {
 			selected.transfer(trick, true); // transfer to trick (includes graphic effect)
 			winner = nextPlayer;
 			winningCard = selected;
+			cardOnTable.add(selected);
+			cardPlayed.add(selected);
 			// End Lead
 			for (int j = 1; j < nbPlayers; j++) {
 				if (++nextPlayer >= nbPlayers)
@@ -228,7 +253,14 @@ public class Whist extends CardGame {
 					winningCard = selected;
 				}
 				// End Follow
+				cardOnTable.add(selected);
+				cardPlayed.add(selected);
 			}
+			/** initialize lead, winningCard and cardOnTable's value*/
+			winningCard = null;
+			lead = null;
+			cardOnTable= new ArrayList<>();
+
 			delay(600);
 			trick.setView(this, new RowLayout(hideLocation, 0));
 			trick.draw();
@@ -239,6 +271,7 @@ public class Whist extends CardGame {
 			if (winningScore == scores[nextPlayer])
 				return Optional.of(nextPlayer);
 		}
+		cardPlayed = new ArrayList<>();
 		removeActor(trumpsActor);
 		return Optional.empty();
 	}
