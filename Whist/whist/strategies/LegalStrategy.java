@@ -10,10 +10,11 @@ import java.util.concurrent.ThreadLocalRandom;
 import static Whist.Whist.getLeadSuit;
 
 public class LegalStrategy implements IPlayStrategy {
+    public static final int START_CARDS = 13;
     @Override
     public Card selectCard(Hand hand) {
 
-        Card[] cards = new Card[13];
+        Card[] cards = new Card[START_CARDS];
         int y = 0;
         for (int i = 0; i < hand.getNumberOfCards(); i++) {
             if (hand.get(i).getSuit() == getLeadSuit()) {
