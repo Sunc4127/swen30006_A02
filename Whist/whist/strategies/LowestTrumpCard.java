@@ -5,10 +5,9 @@ import ch.aplu.jcardgame.Card;
 import java.util.ArrayList;
 
 import static Whist.Whist.getTrumps;
-import static Whist.Whist.getCardOnTable;
 import static Whist.Whist.getWinningCard;
 
-public class LowestTrumpCard extends SmartComponent {
+public class LowestTrumpCard extends CompositeSmartStrategy {
     @Override
     public Card selectCard(ArrayList<Card> cardList){ //throws NoTrumpCardOnTableException {
         Card lowest = null;

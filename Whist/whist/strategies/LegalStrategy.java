@@ -4,6 +4,7 @@ import Whist.Suit;
 import ch.aplu.jcardgame.Card;
 import ch.aplu.jcardgame.Hand;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -12,13 +13,13 @@ import static Whist.Whist.getLeadSuit;
 public class LegalStrategy implements IPlayStrategy {
     public static final int START_CARDS = 13;
     @Override
-    public Card selectCard(Hand hand) {
+    public Card selectCard(ArrayList<Card> cardList) {
 
         Card[] cards = new Card[START_CARDS];
         int y = 0;
-        for (int i = 0; i < hand.getNumberOfCards(); i++) {
-            if (hand.get(i).getSuit() == getLeadSuit()) {
-                cards[y] = hand.get(i);
+        for (Card c: cardList) {
+            if (c.getSuit() == getLeadSuit()) {
+                cards[y] = c;
                 y += 1;
             }
         }
@@ -26,8 +27,8 @@ public class LegalStrategy implements IPlayStrategy {
         final Random random = ThreadLocalRandom.current();
         int position = 0;
         if (y == 0) {
-            position = random.nextInt(hand.getNumberOfCards());
-            return hand.get(position);
+            position = random.nextInt(cardList.size());
+            return cardList.get(position);
         } else {
             position = random.nextInt(y);
             return cards[position];

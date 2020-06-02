@@ -3,28 +3,20 @@ package strategies;
 import ch.aplu.jcardgame.*;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
+
 import static Whist.Whist.getLeadSuit;
 import static Whist.Whist.getTrumps;
 import static Whist.Whist.getCardOnTable;
-import static Whist.Whist.getCardPlayed;
 import static Whist.Whist.getWinningCard;
 
-public class SmartStrategy extends SmartComponent implements IPlayStrategy {
+public class SmartStrategy extends CompositeSmartStrategy {
     HighestCard highestCard = new HighestCard();
     LowestCard lowestCard = new LowestCard();
     HighestTrumpCard highestTrumpCard = new HighestTrumpCard();
     LowestTrumpCard lowestTrumpCard = new LowestTrumpCard();
 
 
-    @Override
-    public Card selectCard(Hand hand) {
 
-        return selectCard(hand.getCardList());
-
-    }
 
     /**
      * 考虑 其他对手的牌（matrix）
@@ -129,6 +121,7 @@ public class SmartStrategy extends SmartComponent implements IPlayStrategy {
                         }
                     }
                 }
+
                 /**
                  * there is a trump card on table
                  *      have higher trump card

@@ -5,7 +5,7 @@ import ch.aplu.jcardgame.Card;
 import java.util.ArrayList;
 import static Whist.Whist.getTrumps;
 
-public class HighestTrumpCard extends SmartComponent {
+public class HighestTrumpCard extends CompositeSmartStrategy {
     @Override
     public Card selectCard(ArrayList<Card> cardList) {
         Card highest = null;

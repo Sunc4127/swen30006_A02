@@ -4,7 +4,7 @@ import ch.aplu.jcardgame.Card;
 
 import java.util.ArrayList;
 
-public class HighestCard extends SmartComponent {
+public class HighestCard extends CompositeSmartStrategy {
     @Override
     public Card selectCard(ArrayList<Card> cardList) {
         Card highest = cardList.get(0);

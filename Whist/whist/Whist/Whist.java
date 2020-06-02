@@ -113,7 +113,7 @@ public class Whist extends CardGame {
 			hands[i].sort(Hand.SortType.SUITPRIORITY, true);
 		}
 
-		readPropertyFile("whist/"+"legal.properties");
+		readPropertyFile("whist/"+"smart.properties");
 
 		arrayNPC = Player.NPCFactory.getInstance().getNPC("whist/"+"smart.properties");
 		if (arrayNPC.length != 4)
@@ -191,7 +191,7 @@ public class Whist extends CardGame {
 				int position = nextPlayer;
 				if (arrayNPC.length != 4)
 					position -= 1;
-				selected = arrayNPC[position].getPlayStrategy().selectCard(hands[nextPlayer]);
+				selected = arrayNPC[position].getPlayStrategy().selectCard(hands[nextPlayer].getCardList());
 			}
 			// Lead with selected card
 			trick.setView(this, new RowLayout(trickLocation, (trick.getNumberOfCards() + 2) * trickWidth));
@@ -220,7 +220,7 @@ public class Whist extends CardGame {
 						position -= 1;
 					setStatusText("Player " + nextPlayer + " thinking...");
 					delay(thinkingTime);
-					selected = arrayNPC[position].getPlayStrategy().selectCard(hands[nextPlayer]);
+					selected = arrayNPC[position].getPlayStrategy().selectCard(hands[nextPlayer].getCardList() );
 				}
 				// Follow with selected card
 				trick.setView(this, new RowLayout(trickLocation, (trick.getNumberOfCards() + 2) * trickWidth));
