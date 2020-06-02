@@ -10,14 +10,11 @@ import static Whist.Whist.getCardOnTable;
 import static Whist.Whist.getWinningCard;
 
 public class SmartStrategy extends CompositeSmartStrategy {
-    HighestCard highestCard = new HighestCard();
-    LowestCard lowestCard = new LowestCard();
-    HighestTrumpCard highestTrumpCard = new HighestTrumpCard();
-    LowestTrumpCard lowestTrumpCard = new LowestTrumpCard();
-
-
-
-
+    CompositeHighestCard highestCard = new CompositeHighestCard();
+    CompositeLowestCard lowestCard = new CompositeLowestCard();
+    CompositeHighestTrumpCard highestTrumpCard = new CompositeHighestTrumpCard();
+    CompositeLowestTrumpCard lowestTrumpCard = new CompositeLowestTrumpCard();
+    
     /**
      * 考虑 其他对手的牌（matrix）
      *
@@ -31,9 +28,6 @@ public class SmartStrategy extends CompositeSmartStrategy {
      *
      *
      * */
-
-
-
 
     @Override
     public Card selectCard(ArrayList<Card> cardList) {
@@ -137,12 +131,9 @@ public class SmartStrategy extends CompositeSmartStrategy {
                  *          do not have higher card
                  *              -> play the lowest card
                  * */
-                //return highestCard.selectCard( legalCards );
+
             }
-
         }
-
-
     }
 }
 
