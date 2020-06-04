@@ -14,7 +14,7 @@ public class SmartStrategy extends CompositeSmartStrategy {
     CompositeLowestCard lowestCard = new CompositeLowestCard();
     CompositeHighestTrumpCard highestTrumpCard = new CompositeHighestTrumpCard();
     CompositeLowestTrumpCard lowestTrumpCard = new CompositeLowestTrumpCard();
-    
+
     /**
      * 考虑 其他对手的牌（matrix）
      *
@@ -82,55 +82,25 @@ public class SmartStrategy extends CompositeSmartStrategy {
                 }
 
             }
-            /**there is a legal move*/
-            else{
-                /** there is a trump card on table*/
-                if( highestTrumpCard.selectCard( getCardOnTable()) != null ){
-                    /** has higher trump card*/
-                    if(trumpCards.size() > 0 && highestTrumpCard.selectCard( getCardOnTable() ).getRankId() >
-                        highestCard.selectCard( trumpCards).getRankId() ){
-                        return lowestTrumpCard.selectCard( trumpCards );
-                    }
-                    /** do not have a higher trump card*/
-                    else{
-                        return lowestCard.selectCard( legalCards );
-                    }
-                }
-                /**there is no trump card on table*/
-                else{
-                    /** has trump card in hand*/
-                    if( trumpCards.size() > 0){
-                        return lowestCard.selectCard( trumpCards );
-                    }
-                    /** do not have trump in hand*/
-                    else{
-                        /**has a higher legal card*/
-                        if(highestCard.selectCard( legalCards ).getRankId()
-                                < getWinningCard().getRankId() ){
-                            return highestCard.selectCard( legalCards );
-                        }
-                        /** do not have a higher legal card*/
-                        else{
-                            return lowestCard.selectCard( legalCards );
-                        }
-                    }
-                }
 
-                /**
-                 * there is a trump card on table
-                 *      have higher trump card
-                 *          -> play the higher trump card
-                 *      do not have higher trump card
-                 *          -> play the lowest legal card
-                 * there is no trump card on table
-                 *      have trump card
-                 *          -> play the lowest trump card
-                 *      do not have trump card
-                 *          have higher normal card
-                 *              -> play the higher card
-                 *          do not have higher card
-                 *              -> play the lowest card
-                 * */
+            /**
+             * there is a legal move
+             *      has a higher legal card
+             *          -> play the highest legal card
+             *      do not have higher legal card
+             *          -> play the lowest legal card
+             *
+             * */
+            else{
+                /**has a higher legal card*/
+                if(highestCard.selectCard( legalCards ).getRankId()
+                        < getWinningCard().getRankId() ){
+                   return highestCard.selectCard( legalCards );
+                }
+                /** do not have a higher legal card*/
+                else{
+                    return lowestCard.selectCard( legalCards );
+                }
 
             }
         }
