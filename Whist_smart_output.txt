@@ -1,0 +1,492 @@
+winning: suit = HEARTS, rank = 10
+ played: suit = HEARTS, rank = 1
+NEW WINNER
+winning: suit = HEARTS, rank = 1
+ played: suit = HEARTS, rank = 12
+winning: suit = HEARTS, rank = 1
+ played: suit = HEARTS, rank = 8
+winning: suit = CLUBS, rank = 11
+ played: suit = CLUBS, rank = 4
+NEW WINNER
+winning: suit = CLUBS, rank = 4
+ played: suit = CLUBS, rank = 2
+NEW WINNER
+winning: suit = CLUBS, rank = 2
+ played: suit = CLUBS, rank = 3
+winning: suit = DIAMONDS, rank = 2
+ played: suit = DIAMONDS, rank = 8
+winning: suit = DIAMONDS, rank = 2
+ played: suit = DIAMONDS, rank = 12
+winning: suit = DIAMONDS, rank = 2
+ played: suit = DIAMONDS, rank = 1
+NEW WINNER
+winning: suit = HEARTS, rank = 3
+ played: suit = HEARTS, rank = 5
+winning: suit = HEARTS, rank = 3
+ played: suit = HEARTS, rank = 9
+winning: suit = HEARTS, rank = 3
+ played: suit = SPADES, rank = 5
+winning: suit = DIAMONDS, rank = 11
+ played: suit = DIAMONDS, rank = 3
+NEW WINNER
+winning: suit = DIAMONDS, rank = 3
+ played: suit = DIAMONDS, rank = 5
+winning: suit = DIAMONDS, rank = 3
+ played: suit = DIAMONDS, rank = 9
+winning: suit = DIAMONDS, rank = 4
+ played: suit = DIAMONDS, rank = 0
+NEW WINNER
+winning: suit = DIAMONDS, rank = 0
+ played: suit = DIAMONDS, rank = 7
+winning: suit = DIAMONDS, rank = 0
+ played: suit = DIAMONDS, rank = 6
+winning: suit = SPADES, rank = 2
+ played: suit = SPADES, rank = 0
+NEW WINNER
+winning: suit = SPADES, rank = 0
+ played: suit = CLUBS, rank = 5
+winning: suit = SPADES, rank = 0
+ played: suit = SPADES, rank = 8
+winning: suit = SPADES, rank = 10
+ played: suit = HEARTS, rank = 7
+NEW WINNER
+winning: suit = HEARTS, rank = 7
+ played: suit = SPADES, rank = 6
+winning: suit = HEARTS, rank = 7
+ played: suit = SPADES, rank = 9
+winning: suit = CLUBS, rank = 0
+ played: suit = CLUBS, rank = 9
+winning: suit = CLUBS, rank = 0
+ played: suit = CLUBS, rank = 10
+winning: suit = CLUBS, rank = 0
+ played: suit = CLUBS, rank = 12
+winning: suit = HEARTS, rank = 2
+ played: suit = DIAMONDS, rank = 10
+winning: suit = HEARTS, rank = 2
+ played: suit = HEARTS, rank = 4
+winning: suit = HEARTS, rank = 2
+ played: suit = SPADES, rank = 3
+winning: suit = HEARTS, rank = 6
+ played: suit = CLUBS, rank = 8
+winning: suit = HEARTS, rank = 6
+ played: suit = SPADES, rank = 7
+winning: suit = HEARTS, rank = 6
+ played: suit = SPADES, rank = 4
+winning: suit = HEARTS, rank = 11
+ played: suit = CLUBS, rank = 7
+winning: suit = HEARTS, rank = 11
+ played: suit = SPADES, rank = 11
+winning: suit = HEARTS, rank = 11
+ played: suit = CLUBS, rank = 1
+winning: suit = HEARTS, rank = 0
+ played: suit = CLUBS, rank = 6
+winning: suit = HEARTS, rank = 0
+ played: suit = SPADES, rank = 12
+winning: suit = HEARTS, rank = 0
+ played: suit = SPADES, rank = 1
+winning: suit = CLUBS, rank = 11
+ played: suit = CLUBS, rank = 6
+NEW WINNER
+winning: suit = CLUBS, rank = 6
+ played: suit = CLUBS, rank = 2
+NEW WINNER
+winning: suit = CLUBS, rank = 2
+ played: suit = CLUBS, rank = 7
+winning: suit = HEARTS, rank = 1
+ played: suit = HEARTS, rank = 9
+winning: suit = HEARTS, rank = 1
+ played: suit = HEARTS, rank = 10
+winning: suit = HEARTS, rank = 1
+ played: suit = HEARTS, rank = 3
+winning: suit = DIAMONDS, rank = 1
+ played: suit = DIAMONDS, rank = 11
+winning: suit = DIAMONDS, rank = 1
+ played: suit = DIAMONDS, rank = 4
+winning: suit = DIAMONDS, rank = 1
+ played: suit = DIAMONDS, rank = 6
+winning: suit = HEARTS, rank = 2
+ played: suit = HEARTS, rank = 8
+winning: suit = HEARTS, rank = 2
+ played: suit = HEARTS, rank = 5
+winning: suit = HEARTS, rank = 2
+ played: suit = HEARTS, rank = 12
+winning: suit = DIAMONDS, rank = 7
+ played: suit = DIAMONDS, rank = 3
+NEW WINNER
+winning: suit = DIAMONDS, rank = 3
+ played: suit = DIAMONDS, rank = 5
+winning: suit = DIAMONDS, rank = 3
+ played: suit = DIAMONDS, rank = 9
+winning: suit = HEARTS, rank = 6
+ played: suit = CLUBS, rank = 0
+winning: suit = HEARTS, rank = 6
+ played: suit = HEARTS, rank = 4
+NEW WINNER
+winning: suit = HEARTS, rank = 4
+ played: suit = HEARTS, rank = 11
+winning: suit = CLUBS, rank = 3
+ played: suit = CLUBS, rank = 10
+winning: suit = CLUBS, rank = 3
+ played: suit = CLUBS, rank = 4
+winning: suit = CLUBS, rank = 3
+ played: suit = CLUBS, rank = 5
+winning: suit = SPADES, rank = 2
+ played: suit = SPADES, rank = 12
+winning: suit = SPADES, rank = 2
+ played: suit = SPADES, rank = 8
+winning: suit = SPADES, rank = 2
+ played: suit = SPADES, rank = 1
+NEW WINNER
+winning: suit = SPADES, rank = 0
+ played: suit = SPADES, rank = 4
+winning: suit = SPADES, rank = 0
+ played: suit = SPADES, rank = 10
+winning: suit = SPADES, rank = 0
+ played: suit = SPADES, rank = 6
+winning: suit = CLUBS, rank = 8
+ played: suit = HEARTS, rank = 7
+winning: suit = CLUBS, rank = 8
+ played: suit = SPADES, rank = 5
+NEW WINNER
+winning: suit = SPADES, rank = 5
+ played: suit = SPADES, rank = 9
+winning: suit = DIAMONDS, rank = 8
+ played: suit = DIAMONDS, rank = 0
+NEW WINNER
+winning: suit = DIAMONDS, rank = 0
+ played: suit = CLUBS, rank = 1
+winning: suit = DIAMONDS, rank = 0
+ played: suit = DIAMONDS, rank = 2
+winning: suit = HEARTS, rank = 0
+ played: suit = CLUBS, rank = 12
+winning: suit = HEARTS, rank = 0
+ played: suit = SPADES, rank = 11
+NEW WINNER
+winning: suit = SPADES, rank = 11
+ played: suit = SPADES, rank = 3
+NEW WINNER
+winning: suit = DIAMONDS, rank = 10
+ played: suit = DIAMONDS, rank = 12
+winning: suit = DIAMONDS, rank = 10
+ played: suit = CLUBS, rank = 9
+winning: suit = DIAMONDS, rank = 10
+ played: suit = SPADES, rank = 7
+NEW WINNER
+winning: suit = DIAMONDS, rank = 11
+ played: suit = DIAMONDS, rank = 0
+NEW WINNER
+winning: suit = DIAMONDS, rank = 0
+ played: suit = DIAMONDS, rank = 12
+winning: suit = DIAMONDS, rank = 0
+ played: suit = DIAMONDS, rank = 3
+winning: suit = SPADES, rank = 1
+ played: suit = SPADES, rank = 7
+winning: suit = SPADES, rank = 1
+ played: suit = SPADES, rank = 3
+winning: suit = SPADES, rank = 1
+ played: suit = SPADES, rank = 8
+winning: suit = DIAMONDS, rank = 1
+ played: suit = DIAMONDS, rank = 7
+winning: suit = DIAMONDS, rank = 1
+ played: suit = DIAMONDS, rank = 8
+winning: suit = DIAMONDS, rank = 1
+ played: suit = DIAMONDS, rank = 2
+winning: suit = DIAMONDS, rank = 4
+ played: suit = SPADES, rank = 4
+winning: suit = DIAMONDS, rank = 4
+ played: suit = DIAMONDS, rank = 9
+winning: suit = DIAMONDS, rank = 4
+ played: suit = DIAMONDS, rank = 10
+winning: suit = HEARTS, rank = 5
+ played: suit = HEARTS, rank = 7
+winning: suit = HEARTS, rank = 5
+ played: suit = HEARTS, rank = 0
+NEW WINNER
+winning: suit = HEARTS, rank = 0
+ played: suit = HEARTS, rank = 3
+winning: suit = CLUBS, rank = 1
+ played: suit = CLUBS, rank = 9
+winning: suit = CLUBS, rank = 1
+ played: suit = CLUBS, rank = 10
+winning: suit = CLUBS, rank = 1
+ played: suit = CLUBS, rank = 3
+winning: suit = CLUBS, rank = 5
+ played: suit = CLUBS, rank = 11
+winning: suit = CLUBS, rank = 5
+ played: suit = CLUBS, rank = 7
+winning: suit = CLUBS, rank = 5
+ played: suit = CLUBS, rank = 0
+NEW WINNER
+winning: suit = SPADES, rank = 12
+ played: suit = SPADES, rank = 10
+NEW WINNER
+winning: suit = SPADES, rank = 10
+ played: suit = SPADES, rank = 5
+NEW WINNER
+winning: suit = SPADES, rank = 5
+ played: suit = SPADES, rank = 11
+winning: suit = HEARTS, rank = 12
+ played: suit = HEARTS, rank = 6
+NEW WINNER
+winning: suit = HEARTS, rank = 6
+ played: suit = HEARTS, rank = 1
+NEW WINNER
+winning: suit = HEARTS, rank = 1
+ played: suit = HEARTS, rank = 4
+winning: suit = SPADES, rank = 0
+ played: suit = SPADES, rank = 2
+winning: suit = SPADES, rank = 0
+ played: suit = SPADES, rank = 9
+winning: suit = SPADES, rank = 0
+ played: suit = HEARTS, rank = 11
+winning: suit = CLUBS, rank = 12
+ played: suit = CLUBS, rank = 6
+NEW WINNER
+winning: suit = CLUBS, rank = 6
+ played: suit = CLUBS, rank = 2
+NEW WINNER
+winning: suit = CLUBS, rank = 2
+ played: suit = HEARTS, rank = 9
+winning: suit = HEARTS, rank = 10
+ played: suit = DIAMONDS, rank = 6
+winning: suit = HEARTS, rank = 10
+ played: suit = HEARTS, rank = 8
+NEW WINNER
+winning: suit = HEARTS, rank = 8
+ played: suit = SPADES, rank = 6
+winning: suit = CLUBS, rank = 4
+ played: suit = CLUBS, rank = 8
+winning: suit = CLUBS, rank = 4
+ played: suit = HEARTS, rank = 2
+winning: suit = CLUBS, rank = 4
+ played: suit = DIAMONDS, rank = 5
+winning: suit = HEARTS, rank = 10
+ played: suit = HEARTS, rank = 9
+NEW WINNER
+winning: suit = HEARTS, rank = 9
+ played: suit = HEARTS, rank = 8
+NEW WINNER
+winning: suit = HEARTS, rank = 8
+ played: suit = HEARTS, rank = 6
+NEW WINNER
+winning: suit = DIAMONDS, rank = 2
+ played: suit = DIAMONDS, rank = 0
+NEW WINNER
+winning: suit = DIAMONDS, rank = 0
+ played: suit = DIAMONDS, rank = 3
+winning: suit = DIAMONDS, rank = 0
+ played: suit = DIAMONDS, rank = 4
+winning: suit = SPADES, rank = 2
+ played: suit = SPADES, rank = 8
+winning: suit = SPADES, rank = 2
+ played: suit = SPADES, rank = 9
+winning: suit = SPADES, rank = 2
+ played: suit = SPADES, rank = 0
+NEW WINNER
+winning: suit = DIAMONDS, rank = 6
+ played: suit = DIAMONDS, rank = 7
+winning: suit = DIAMONDS, rank = 6
+ played: suit = DIAMONDS, rank = 5
+NEW WINNER
+winning: suit = DIAMONDS, rank = 5
+ played: suit = DIAMONDS, rank = 9
+winning: suit = CLUBS, rank = 5
+ played: suit = CLUBS, rank = 4
+NEW WINNER
+winning: suit = CLUBS, rank = 4
+ played: suit = CLUBS, rank = 11
+winning: suit = CLUBS, rank = 4
+ played: suit = CLUBS, rank = 10
+winning: suit = SPADES, rank = 4
+ played: suit = SPADES, rank = 3
+NEW WINNER
+winning: suit = SPADES, rank = 3
+ played: suit = SPADES, rank = 1
+NEW WINNER
+winning: suit = SPADES, rank = 1
+ played: suit = HEARTS, rank = 3
+winning: suit = DIAMONDS, rank = 1
+ played: suit = HEARTS, rank = 11
+winning: suit = DIAMONDS, rank = 1
+ played: suit = DIAMONDS, rank = 8
+winning: suit = DIAMONDS, rank = 1
+ played: suit = DIAMONDS, rank = 12
+winning: suit = HEARTS, rank = 0
+ played: suit = HEARTS, rank = 1
+winning: suit = HEARTS, rank = 0
+ played: suit = HEARTS, rank = 2
+winning: suit = HEARTS, rank = 0
+ played: suit = HEARTS, rank = 12
+winning: suit = HEARTS, rank = 7
+ played: suit = HEARTS, rank = 5
+NEW WINNER
+winning: suit = HEARTS, rank = 5
+ played: suit = CLUBS, rank = 2
+winning: suit = HEARTS, rank = 5
+ played: suit = SPADES, rank = 11
+NEW WINNER
+winning: suit = CLUBS, rank = 8
+ played: suit = DIAMONDS, rank = 10
+winning: suit = CLUBS, rank = 8
+ played: suit = CLUBS, rank = 3
+NEW WINNER
+winning: suit = CLUBS, rank = 3
+ played: suit = CLUBS, rank = 12
+winning: suit = CLUBS, rank = 7
+ played: suit = CLUBS, rank = 9
+winning: suit = CLUBS, rank = 7
+ played: suit = SPADES, rank = 6
+NEW WINNER
+winning: suit = SPADES, rank = 6
+ played: suit = SPADES, rank = 7
+winning: suit = DIAMONDS, rank = 11
+ played: suit = HEARTS, rank = 4
+winning: suit = DIAMONDS, rank = 11
+ played: suit = CLUBS, rank = 1
+winning: suit = DIAMONDS, rank = 11
+ played: suit = SPADES, rank = 12
+NEW WINNER
+winning: suit = CLUBS, rank = 0
+ played: suit = SPADES, rank = 5
+NEW WINNER
+winning: suit = SPADES, rank = 5
+ played: suit = SPADES, rank = 10
+winning: suit = SPADES, rank = 5
+ played: suit = CLUBS, rank = 6
+winning: suit = CLUBS, rank = 2
+ played: suit = CLUBS, rank = 8
+winning: suit = CLUBS, rank = 2
+ played: suit = CLUBS, rank = 1
+NEW WINNER
+winning: suit = CLUBS, rank = 1
+ played: suit = CLUBS, rank = 12
+winning: suit = HEARTS, rank = 6
+ played: suit = HEARTS, rank = 10
+winning: suit = HEARTS, rank = 6
+ played: suit = HEARTS, rank = 11
+winning: suit = HEARTS, rank = 6
+ played: suit = HEARTS, rank = 0
+NEW WINNER
+winning: suit = DIAMONDS, rank = 11
+ played: suit = DIAMONDS, rank = 0
+NEW WINNER
+winning: suit = DIAMONDS, rank = 0
+ played: suit = DIAMONDS, rank = 9
+winning: suit = DIAMONDS, rank = 0
+ played: suit = DIAMONDS, rank = 12
+winning: suit = HEARTS, rank = 9
+ played: suit = HEARTS, rank = 5
+NEW WINNER
+winning: suit = HEARTS, rank = 5
+ played: suit = HEARTS, rank = 8
+winning: suit = HEARTS, rank = 5
+ played: suit = HEARTS, rank = 4
+NEW WINNER
+winning: suit = SPADES, rank = 5
+ played: suit = SPADES, rank = 2
+NEW WINNER
+winning: suit = SPADES, rank = 2
+ played: suit = SPADES, rank = 11
+winning: suit = SPADES, rank = 2
+ played: suit = SPADES, rank = 0
+NEW WINNER
+winning: suit = DIAMONDS, rank = 3
+ played: suit = DIAMONDS, rank = 4
+winning: suit = DIAMONDS, rank = 3
+ played: suit = DIAMONDS, rank = 2
+NEW WINNER
+winning: suit = DIAMONDS, rank = 2
+ played: suit = SPADES, rank = 3
+NEW WINNER
+winning: suit = HEARTS, rank = 3
+ played: suit = SPADES, rank = 9
+NEW WINNER
+winning: suit = SPADES, rank = 9
+ played: suit = HEARTS, rank = 2
+winning: suit = SPADES, rank = 9
+ played: suit = HEARTS, rank = 7
+winning: suit = CLUBS, rank = 3
+ played: suit = CLUBS, rank = 6
+winning: suit = CLUBS, rank = 3
+ played: suit = CLUBS, rank = 5
+winning: suit = CLUBS, rank = 3
+ played: suit = CLUBS, rank = 4
+winning: suit = DIAMONDS, rank = 6
+ played: suit = DIAMONDS, rank = 1
+NEW WINNER
+winning: suit = DIAMONDS, rank = 1
+ played: suit = DIAMONDS, rank = 5
+winning: suit = DIAMONDS, rank = 1
+ played: suit = HEARTS, rank = 1
+winning: suit = DIAMONDS, rank = 7
+ played: suit = DIAMONDS, rank = 10
+winning: suit = DIAMONDS, rank = 7
+ played: suit = SPADES, rank = 12
+NEW WINNER
+winning: suit = SPADES, rank = 12
+ played: suit = DIAMONDS, rank = 8
+winning: suit = SPADES, rank = 10
+ played: suit = SPADES, rank = 1
+NEW WINNER
+winning: suit = SPADES, rank = 1
+ played: suit = SPADES, rank = 8
+winning: suit = SPADES, rank = 1
+ played: suit = SPADES, rank = 4
+winning: suit = CLUBS, rank = 11
+ played: suit = CLUBS, rank = 10
+NEW WINNER
+winning: suit = CLUBS, rank = 10
+ played: suit = CLUBS, rank = 7
+NEW WINNER
+winning: suit = CLUBS, rank = 7
+ played: suit = CLUBS, rank = 0
+NEW WINNER
+winning: suit = SPADES, rank = 7
+ played: suit = SPADES, rank = 6
+NEW WINNER
+winning: suit = SPADES, rank = 6
+ played: suit = HEARTS, rank = 12
+winning: suit = SPADES, rank = 6
+ played: suit = CLUBS, rank = 9
+winning: suit = SPADES, rank = 0
+ played: suit = SPADES, rank = 11
+winning: suit = SPADES, rank = 0
+ played: suit = SPADES, rank = 5
+winning: suit = SPADES, rank = 0
+ played: suit = SPADES, rank = 9
+winning: suit = CLUBS, rank = 8
+ played: suit = CLUBS, rank = 4
+NEW WINNER
+winning: suit = CLUBS, rank = 4
+ played: suit = CLUBS, rank = 12
+winning: suit = CLUBS, rank = 4
+ played: suit = CLUBS, rank = 2
+NEW WINNER
+winning: suit = SPADES, rank = 6
+ played: suit = SPADES, rank = 10
+winning: suit = SPADES, rank = 6
+ played: suit = SPADES, rank = 1
+NEW WINNER
+winning: suit = SPADES, rank = 1
+ played: suit = CLUBS, rank = 0
+winning: suit = HEARTS, rank = 0
+ played: suit = HEARTS, rank = 5
+winning: suit = HEARTS, rank = 0
+ played: suit = HEARTS, rank = 8
+winning: suit = HEARTS, rank = 0
+ played: suit = HEARTS, rank = 4
+winning: suit = SPADES, rank = 2
+ played: suit = DIAMONDS, rank = 7
+NEW WINNER
+winning: suit = DIAMONDS, rank = 7
+ played: suit = SPADES, rank = 8
+winning: suit = DIAMONDS, rank = 7
+ played: suit = SPADES, rank = 12
+winning: suit = DIAMONDS, rank = 5
+ played: suit = DIAMONDS, rank = 3
+NEW WINNER
+winning: suit = DIAMONDS, rank = 3
+ played: suit = DIAMONDS, rank = 11
+winning: suit = DIAMONDS, rank = 3
+ played: suit = DIAMONDS, rank = 1
+NEW WINNER
