@@ -18,7 +18,10 @@ public class Whist extends CardGame {
 
 	final String trumpImage[] = { "bigspade.gif", "bigheart.gif", "bigdiamond.gif", "bigclub.gif" };
 
-	static final Random random = ThreadLocalRandom.current();
+	static Random random ;
+	public static Random getRandom(){
+		return random;
+	}
 
 	// return random Enum value
 	public static <T extends Enum<?>> T randomEnum(Class<T> clazz) {
@@ -38,14 +41,10 @@ public class Whist extends CardGame {
 		return list.get(x);
 	}
 
-	public boolean rankGreater(Card card1, Card card2) {
-		return card1.getRankId() < card2.getRankId(); // Warning: Reverse rank order of cards (see comment on enum)
-	}
-
 	private final String version = "1.0";
-	public final int nbPlayers = 4;
-	public static final int nbStartCards = 13;
-	public int winningScore = 11;
+	private final int nbPlayers = 4;
+	private static int nbStartCards = 13;
+	private int winningScore = 11;
 	private final int handWidth = 400;
 	private final int trickWidth = 40;
 	private final Deck deck = new Deck(Suit.values(), Rank.values(), "cover");
@@ -113,10 +112,6 @@ public class Whist extends CardGame {
 			hands[i].sort(Hand.SortType.SUITPRIORITY, true);
 		}
 
-		Property.readPropertyFile("whist/"+"smart.properties");
-		winningScore = Property.getProperty("winningScore");
-		thinkingTime = Property.getProperty("thinkingTime");
-
 		arrayNPC = Player.NPCFactory.getInstance().getNPC();
 		if (arrayNPC.length != 4)
 			humanPlayer = new HumanPlayer(hands[0], selected);
@@ -131,7 +126,15 @@ public class Whist extends CardGame {
 			hands[i].setTargetArea(new TargetArea(trickLocation));
 			hands[i].draw();
 		}
+
 	}
+
+
+
+	public boolean rankGreater(Card card1, Card card2) {
+		return card1.getRankId() < card2.getRankId(); // Warning: Reverse rank order of cards (see comment on enum)
+	}
+
 
 	private static Suit lead = null;
 	public static Suit getLeadSuit() {
@@ -148,7 +151,8 @@ public class Whist extends CardGame {
 		return winningCard;
 	}
 
-	private Optional<Integer> playRound() { // Returns winner, if any
+	private Optional<Integer> playRound() {
+		// Returns winner, if any
 		// Select and display trump suit
 		trumps = randomEnum(Suit.class);
 		final Actor trumpsActor = new Actor("sprites/" + trumpImage[trumps.ordinal()]);
@@ -265,10 +269,25 @@ public class Whist extends CardGame {
 		setStatusText("Initializing...");
 		initScore();
 		Optional<Integer> winner;
+		Property.readPropertyFile("whist/"+"legal.properties");
+
+		random = new Random(Property.getProperty("Seed"));
+		if(Property.ifPropertyExist("winningScore")){
+			winningScore= Property.getProperty(("winningScore"));
+		}
+		if(Property.ifPropertyExist("thinkingTime")){
+			thinkingTime = Property.getProperty(("thinkingTime"));
+		}
+
+		if(Property.ifPropertyExist("nbStartCards")){
+			nbStartCards = Property.getProperty(("nbStartCards"));
+		}
+
 		do {
 			initRound();
 			winner = playRound();
 		} while (!winner.isPresent());
+
 		addActor(new Actor("sprites/gameover.gif"), textLocation);
 		setStatusText("Game over. Winner is player: " + winner.get());
 		refresh();

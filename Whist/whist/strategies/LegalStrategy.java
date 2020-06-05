@@ -8,34 +8,34 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import Whist.Whist;
 
+import static Whist.Whist.getLeadSuit;
+import static Whist.Whist.getRandom;
+
 public class LegalStrategy implements IPlayStrategy {
 
     @Override
     public Card selectCard(ArrayList<Card> cardList) {
 
-        // Temporary cards holder
-        Card[] cards = new Card[Whist.nbStartCards];
+        // legal cards in hand
+        ArrayList<Card> legalCards = new ArrayList<>();
 
         // Check the number of cards from the same suit as the lead card
-        int nbCards = 0;
-        for (Card card: cardList) {
-            if (card.getSuit() == Whist.getLeadSuit()) {
-                cards[nbCards] = card;
-                nbCards += 1;
-            }
+        for( Card c: cardList ){
+            if( c.getSuit() == getLeadSuit() )
+                legalCards.add(c);
         }
 
 
-        final Random random = ThreadLocalRandom.current();
+        final Random random = getRandom();
         int position;
         // If no car is from the same suit, selected a card randomly
-        if (nbCards == 0) {
+        if (legalCards.size() <1 ) {
             position = random.nextInt(cardList.size());
             return cardList.get(position);
         } else {
             // If is, randomly select a card from the temporary cards holder
-            position = random.nextInt(nbCards);
-            return cards[position];
+            position = random.nextInt(legalCards.size());
+            return legalCards.get(position);
         }
     }
 }

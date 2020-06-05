@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class Property {
+
     private static Properties properties = new Properties();
 
     public static void readPropertyFile(String fileName) throws IOException {
@@ -33,6 +34,11 @@ public class Property {
     public static int getProperty(String propertyType) {
         //System.out.println(properties.getProperty(propertyType));
         return Integer.parseInt(properties.getProperty(propertyType));
+    }
+
+    public static boolean ifPropertyExist(String property){
+
+        return properties.getProperty(property) != null;
     }
 
 }

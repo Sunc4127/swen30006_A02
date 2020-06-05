@@ -15,24 +15,13 @@ public class SmartStrategy extends CompositeSmartStrategy {
     CompositeHighestTrumpCard highestTrumpCard = new CompositeHighestTrumpCard();
     CompositeLowestTrumpCard lowestTrumpCard = new CompositeLowestTrumpCard();
 
-    /**
-     * 考虑 其他对手的牌（matrix）
-     *
-     * trump牌
-     *
-     * 其他人最少的suit
-     *
-     * 队友积分快赢了
-     *
-     * 选lead的时候 选自己最多花色的最大的
-     *
-     *
-     * */
-
     @Override
     public Card selectCard(ArrayList<Card> cardList) {
+        // legal cards in hand
         ArrayList<Card> legalCards = new ArrayList<>();
+        // trump cards in hand
         ArrayList<Card> trumpCards = new ArrayList<>();
+        // non-trump cards in hand
         ArrayList<Card> NonTrumpCards = new ArrayList<>();
 
         for(Card c: cardList){

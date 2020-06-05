@@ -12,18 +12,6 @@ public class CompositeLowestTrumpCard extends CompositeSmartStrategy {
     public Card selectCard(ArrayList<Card> cardList){ //throws NoTrumpCardOnTableException {
         Card lowest = null;
         Card highestTrumpOnTable = getWinningCard();
-        /**
-        for(Card c: getCardOnTable() ){
-            if( c.getSuit() == getTrumps() ){
-                if( highestTrumpOnTable == null || c.getRankId() < highestTrumpOnTable.getRankId())
-                    highestTrumpOnTable = c;
-            }
-        }
-         */
-        /**
-        if( highestTrumpOnTable == null) {
-            throw new NoTrumpCardOnTableException();
-        }*/
 
         for( Card c: cardList ){
             if( c.getSuit() == getTrumps() ){
