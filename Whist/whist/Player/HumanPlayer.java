@@ -8,29 +8,32 @@ import Whist.*;
 
 public class HumanPlayer {
 
-    private Hand hands;
+    private Hand hand;
 
-    public HumanPlayer(Hand hands, Card selected) {
-        this.hands = hands;
+    // Create human player by adding ChardListener to its hand
+    public HumanPlayer(Hand hand, Card selected) {
+        this.hand = hand;
         // Set up human player for interaction
         CardListener cardListener = new CardAdapter() {
             private Card card;
 
             public void leftDoubleClicked(Card card) {
                 Whist.setCard(card);
-				hands.setTouchEnabled(false);
+				hand.setTouchEnabled(false);
 			}
         };
-        hands.addCardListener(cardListener);
+        hand.addCardListener(cardListener);
     }
 
-    public Hand getHands() {
-        return hands;
+    public Hand getHand() {
+        return hand;
     }
-    public void setHands(boolean isTouchEnabled) {
+
+    // Set TouchEnabled to the opposite boolean value
+    public void setHand(boolean isTouchEnabled) {
         if (isTouchEnabled)
-            hands.setTouchEnabled(true);
+            hand.setTouchEnabled(true);
         else
-            hands.setTouchEnabled(false);
+            hand.setTouchEnabled(false);
     }
 }

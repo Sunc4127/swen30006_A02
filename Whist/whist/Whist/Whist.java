@@ -180,7 +180,7 @@ public class Whist extends CardGame {
 			selected = null;
 
 			if (0 == nextPlayer && arrayNPC.length != 4) { // Select lead depending on player type
-				humanPlayer.setHands(true);
+				humanPlayer.setHand(true);
 				setStatus("Player 0 double-click on card to lead.");
 				while (null == selected)
 					delay(100);
@@ -210,7 +210,7 @@ public class Whist extends CardGame {
 					nextPlayer = 0; // From last back to first
 				selected = null;
 				if (0 == nextPlayer && arrayNPC.length != 4) {
-					humanPlayer.setHands(true);
+					humanPlayer.setHand(true);
 					setStatus("Player 0 double-click on card to follow.");
 					while (null == selected)
 						delay(100);
