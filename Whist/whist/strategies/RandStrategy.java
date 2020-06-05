@@ -12,6 +12,7 @@ import static Whist.Whist.getLeadSuit;
 public class RandStrategy implements IPlayStrategy {
     @Override
     public Card selectCard(ArrayList<Card> cardList) {
+        // Same code copied from Whist
         Random random = null;
         int x = random.nextInt(cardList.size());
         return cardList.get(x);

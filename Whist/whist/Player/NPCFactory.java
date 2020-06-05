@@ -1,15 +1,9 @@
 package Player;
 
-import strategies.IPlayStrategy;
-import strategies.PlayStrategyFactory;
 import Whist.Property;
+import strategies.PlayStrategyFactory;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Properties;
 
 public class NPCFactory {
     private static NPCFactory instance;

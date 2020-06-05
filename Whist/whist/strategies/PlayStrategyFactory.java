@@ -6,7 +6,7 @@ public class PlayStrategyFactory {
 
     private static  PlayStrategyFactory instance;
 
-
+    // Create strategies based on playType
     public  IPlayStrategy getPlayStrategy(String playType) {
         if (playType.equals("Random")) {
             playStrategy = new RandStrategy();
@@ -15,10 +15,10 @@ public class PlayStrategyFactory {
         } else if (playType.equals("Smart")) {
             playStrategy = new SmartStrategy();
         }
-
         return playStrategy;
     }
 
+    // Singleton pattern
     public static PlayStrategyFactory getInstance() {
         if (instance == null)
             instance = new PlayStrategyFactory();

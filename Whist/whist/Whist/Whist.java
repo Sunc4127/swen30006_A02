@@ -44,7 +44,7 @@ public class Whist extends CardGame {
 
 	private final String version = "1.0";
 	public final int nbPlayers = 4;
-	public final int nbStartCards = 13;
+	public static final int nbStartCards = 13;
 	public int winningScore = 11;
 	private final int handWidth = 400;
 	private final int trickWidth = 40;
