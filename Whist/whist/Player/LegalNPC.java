@@ -9,6 +9,7 @@ public class LegalNPC implements INPC {
         this.playStrategy = playStrategy;
     }
 
+    @Override
     public IPlayStrategy getPlayStrategy() {
         return playStrategy;
     }

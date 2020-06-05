@@ -9,6 +9,7 @@ public class SmartNPC implements INPC{
         this.playStrategy = playStrategy;
     }
 
+    @Override
     public IPlayStrategy getPlayStrategy() {
         return playStrategy;
     }

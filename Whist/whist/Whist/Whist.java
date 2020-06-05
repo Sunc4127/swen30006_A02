@@ -113,9 +113,11 @@ public class Whist extends CardGame {
 			hands[i].sort(Hand.SortType.SUITPRIORITY, true);
 		}
 
-		readPropertyFile("whist/"+"smart.properties");
+		Property.readPropertyFile("whist/"+"smart.properties");
+		winningScore = Property.getProperty("winningScore");
+		thinkingTime = Property.getProperty("thinkingTime");
 
-		arrayNPC = Player.NPCFactory.getInstance().getNPC("whist/"+"smart.properties");
+		arrayNPC = Player.NPCFactory.getInstance().getNPC();
 		if (arrayNPC.length != 4)
 			humanPlayer = new HumanPlayer(hands[0], selected);
 
@@ -129,25 +131,6 @@ public class Whist extends CardGame {
 			hands[i].setTargetArea(new TargetArea(trickLocation));
 			hands[i].draw();
 		}
-	}
-
-	private void readPropertyFile(String fileName) throws IOException {
-		Properties whistProperties = new Properties();
-		FileReader inStream = null;
-		try {
-			inStream = new FileReader(fileName);
-			whistProperties.load(inStream);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (inStream != null) {
-				inStream.close();
-			}
-		}
-		winningScore = Integer.parseInt(whistProperties.getProperty("winningScore"));
-		thinkingTime = Integer.parseInt(whistProperties.getProperty("thinkingTime"));
 	}
 
 	private static Suit lead = null;

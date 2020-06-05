@@ -9,6 +9,7 @@ public class RandNPC implements  INPC {
         this.playStrategy = playStrategy;
     }
 
+    @Override
     public IPlayStrategy getPlayStrategy() {
         return playStrategy;
     }
