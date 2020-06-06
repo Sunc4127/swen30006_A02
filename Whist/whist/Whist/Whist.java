@@ -38,7 +38,8 @@ public class Whist extends CardGame {
 	// return random Card from ArrayList
 	public static Card randomCard(ArrayList<Card> list) {
 		int x = random.nextInt(list.size());
-		return list.get(x);
+		Card selected = list.remove(x);
+		return selected;
 	}
 
 	private final String version = "1.0";
@@ -60,6 +61,7 @@ public class Whist extends CardGame {
 	private Location hideLocation = new Location(-500, -500);
 	private Location trumpsActorLocation = new Location(50, 50);
 	private boolean enforceRules = false;
+	private int turn = 0;
 
 	/** cards that had been played */
 	private  static ArrayList<Card> cardPlayed = new ArrayList<>();
@@ -106,8 +108,29 @@ public class Whist extends CardGame {
 
 	private INPC[] arrayNPC = null;
 
+	private void shuffleHand(){
+
+		ArrayList<Card> allCards = new ArrayList<>();
+		for(Hand hand: hands){
+			for(Card card:hand.getCardList()){
+				allCards.add(card);
+			}
+		}
+
+		for(int i = 0; i < nbPlayers; i++){
+			hands[i] = new Hand(this.deck);
+			for(int j = 0; j < nbStartCards; j++){
+				hands[i].insert(randomCard(allCards),false);
+			}
+		}
+	}
+
 	private void initRound() throws IOException {
-		hands = deck.dealingOut(nbPlayers, nbStartCards); // Last element of hands is leftover cards; these are ignored
+		//System.out.println("new round");
+		hands = deck.dealingOut(nbPlayers, Rank.values().length,false); // Last element of hands is leftover cards; these are ignored
+		/**need to shuffle cards and reduce to nStartCards*/
+		shuffleHand();
+
 		for (int i = 0; i < nbPlayers; i++) {
 			hands[i].sort(Hand.SortType.SUITPRIORITY, true);
 		}
@@ -129,12 +152,9 @@ public class Whist extends CardGame {
 
 	}
 
-
-
 	public boolean rankGreater(Card card1, Card card2) {
 		return card1.getRankId() < card2.getRankId(); // Warning: Reverse rank order of cards (see comment on enum)
 	}
-
 
 	private static Suit lead = null;
 	public static Suit getLeadSuit() {
@@ -272,6 +292,7 @@ public class Whist extends CardGame {
 		Property.readPropertyFile("whist/"+"legal.properties");
 
 		random = new Random(Property.getProperty("Seed"));
+		System.out.println("system seed:"+ Property.getProperty(("Seed")));
 		if(Property.ifPropertyExist("winningScore")){
 			winningScore= Property.getProperty(("winningScore"));
 		}
@@ -286,6 +307,8 @@ public class Whist extends CardGame {
 		do {
 			initRound();
 			winner = playRound();
+			turn++;
+			random= new Random(Property.getProperty("Seed")+turn);
 		} while (!winner.isPresent());
 
 		addActor(new Actor("sprites/gameover.gif"), textLocation);
