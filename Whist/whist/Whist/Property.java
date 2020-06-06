@@ -31,15 +31,13 @@ public class Property {
         return properties;
     }
 
+    /**get int property*/
     public static int getProperty(String propertyType) {
         //System.out.println(properties.getProperty(propertyType));
         return Integer.parseInt(properties.getProperty(propertyType));
     }
 
-    public static String getPropertyString(String property){
-        return properties.getProperty(property);
-    }
-
+    /** get the property with the type of int array*/
     public static int[] getPropertyArray(String property){
         String propertyString = properties.getProperty(property);
         String[] propertyStringArray = propertyString.substring(1,propertyString.length()-1).split(",");
@@ -53,8 +51,8 @@ public class Property {
         return propertyArray;
     }
 
+    /** if a property exists in properties file*/
     public static boolean ifPropertyExist(String property){
-
         return properties.getProperty(property) != null;
     }
 

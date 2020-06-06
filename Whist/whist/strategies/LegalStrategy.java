@@ -4,9 +4,6 @@ import ch.aplu.jcardgame.Card;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
-
-import Whist.Whist;
 
 import static Whist.Whist.getLeadSuit;
 import static Whist.Whist.getRandom;

@@ -12,6 +12,9 @@ import java.util.*;
 
 @SuppressWarnings("serial")
 public class Whist extends CardGame {
+	private static final int HUMAN_PLAYER = 3;
+	/**control the chang of random seed, basically it can be any other positive integer that greater than 1*/
+	private static final int SEED_CHANGE = 7;
 
 	final String trumpImage[] = { "bigspade.gif", "bigheart.gif", "bigdiamond.gif", "bigclub.gif" };
 
@@ -39,7 +42,7 @@ public class Whist extends CardGame {
 		return selected;
 	}
 
-	private final String version = "1.0";
+	private final String version = "2.0";
 	private final int nbPlayers = 4;
 	private static int nbStartCards = 13;
 	private int winningScore = 11;
@@ -63,15 +66,32 @@ public class Whist extends CardGame {
 	private int[] playerPosition;
 	private static Card selected;
 	private HashMap<Integer, HumanPlayer> humanPlayer ;
-	private INPC[] arrayNPC = null;
 	private HashMap<Integer, INPC> NPCList;
 	private int[] scores = new int[nbPlayers];
+	private static Suit lead = null;
+	private static Suit trumps = null;
+	private static Card winningCard = null;
+
+	Font bigFont = new Font("Serif", Font.BOLD, 36);
 
 	/** cards that had been played */
 	private  static ArrayList<Card> cardPlayed = new ArrayList<>();
 
 	/** recently played cards */
 	private static ArrayList<Card> cardOnTable = new ArrayList<>();
+
+	/**getter*/
+	public static Suit getLeadSuit() {
+		return lead;
+	}
+
+	public static Suit getTrumps(){
+		return trumps;
+	}
+
+	public static Card getWinningCard(){
+		return winningCard;
+	}
 
 	public static ArrayList<Card> getCardPlayed(){
 		return cardPlayed;
@@ -81,11 +101,10 @@ public class Whist extends CardGame {
 		return cardOnTable;
 	}
 
+	/**original code*/
 	public void setStatus(String string) {
 		setStatusText(string);
 	}
-
-	Font bigFont = new Font("Serif", Font.BOLD, 36);
 
 	private void initScore() {
 		for (int i = 0; i < nbPlayers; i++) {
@@ -105,6 +124,11 @@ public class Whist extends CardGame {
 		selected = card;
 	}
 
+	public boolean rankGreater(Card card1, Card card2) {
+		return card1.getRankId() < card2.getRankId(); // Warning: Reverse rank order of cards (see comment on enum)
+	}
+
+	/**shuffle cards on hand, and reduce them to nbStartCards*/
 	private void shuffleHand(){
 
 		ArrayList<Card> allCards = new ArrayList<>();
@@ -124,53 +148,32 @@ public class Whist extends CardGame {
 
 	private void initRound() throws IOException {
 		//System.out.println("new round");
+		NPCList = new HashMap<>();
+		humanPlayer = new HashMap<>();
 		hands = deck.dealingOut(nbPlayers, Rank.values().length,false); // Last element of hands is leftover cards; these are ignored
 		/**need to shuffle cards and reduce to nStartCards*/
 		shuffleHand();
 
-		NPCList = new HashMap<>();
-		humanPlayer = new HashMap<>();
-
 		for (int i = 0; i < nbPlayers; i++) {
 			hands[i].sort(Hand.SortType.SUITPRIORITY, true);
 		}
-
+		/**initialize all NPC*/
 		NPCList = Player.NPCFactory.getInstance().getNPCList();
-
+		/**initialize all human player*/
 		if( NPCList.size() < nbPlayers){
 			for(int i = 0; i < nbPlayers; i++ ){
-				if(playerPosition[i] == 3){
+				if(playerPosition[i] == HUMAN_PLAYER){
 					humanPlayer.put(i,new HumanPlayer(hands[i], selected));
 				}
 			}
-			/**
-			if(Property.ifPropertyExist("playerPosition")){
-				for(int i = 0; i < nbPlayers; i++ ){
-					if(playerPosition[i] == 3){
-						humanPlayer.put(i,new HumanPlayer(hands[i], selected));
-					}
-				}
-			}
-			else{
-				int index = NPCList.size();
-				while(index < nbPlayers){
-					humanPlayer.put(index, new HumanPlayer(hands[index], selected));
-				}
-			}
-			 */
-
 		}
+		/**
 		for(int i =0; i< NPCList.size();i++){
 			System.out.println("npc "+i+" position"+NPCList.keySet().toArray()[i]);
 		}
 		for(int i = 0; i<humanPlayer.size(); i++){
 			System.out.println("human player"+ i +" position "+ humanPlayer.keySet().toArray()[i]);
 		}
-
-		/**
-		arrayNPC = Player.NPCFactory.getInstance().getNPC();
-		if (arrayNPC.length != 4)
-			humanPlayer = new HumanPlayer(hands[0], selected);
 		*/
 
 		// graphics
@@ -186,26 +189,7 @@ public class Whist extends CardGame {
 
 	}
 
-	public boolean rankGreater(Card card1, Card card2) {
-		return card1.getRankId() < card2.getRankId(); // Warning: Reverse rank order of cards (see comment on enum)
-	}
-
-	private static Suit lead = null;
-	public static Suit getLeadSuit() {
-		return lead;
-	}
-
-	private static Suit trumps = null;
-	public static Suit getTrumps(){
-		return trumps;
-	}
-
-	private static Card winningCard = null;
-	public static Card getWinningCard(){
-		return winningCard;
-	}
-
-	private Optional<Integer>  play(){
+	private Optional<Integer>  playRound(){
 		// Returns winner, if any
 		// Select and display trump suit
 		trumps = randomEnum(Suit.class);
@@ -219,7 +203,7 @@ public class Whist extends CardGame {
 		for(int i = 0; i< nbStartCards; i++){
 			trick = new Hand(deck);
 			selected = null;
-			if( playerPosition[nextPlayer] == 3){
+			if( playerPosition[nextPlayer] == HUMAN_PLAYER){
 				humanPlayer.get(nextPlayer).setHand(true);
 				setStatus("Player"+ nextPlayer + " double-click on card to lead.");
 				while (null == selected)
@@ -246,7 +230,7 @@ public class Whist extends CardGame {
 				if (++nextPlayer >= nbPlayers)
 					nextPlayer = 0; // From last back to first
 				selected = null;
-				if(playerPosition[nextPlayer] == 3){
+				if(playerPosition[nextPlayer] == HUMAN_PLAYER){
 					humanPlayer.get(nextPlayer).setHand(true);
 					setStatus("Player"+ nextPlayer + " double-click on card to lead.");
 					while (null == selected)
@@ -311,130 +295,21 @@ public class Whist extends CardGame {
 		return Optional.empty();
 	}
 
-	/**
-	private Optional<Integer> playRound() {
-		// Returns winner, if any
-		// Select and display trump suit
-		trumps = randomEnum(Suit.class);
-		final Actor trumpsActor = new Actor("sprites/" + trumpImage[trumps.ordinal()]);
-		addActor(trumpsActor, trumpsActorLocation);
-		// End trump suit
-		Hand trick;
-		int winner;
-
-		int nextPlayer = random.nextInt(nbPlayers); // randomly select player to lead for this round
-		for (int i = 0; i < nbStartCards; i++) {
-			trick = new Hand(deck);
-			selected = null;
-
-			if (0 == nextPlayer && arrayNPC.length != 4) { // Select lead depending on player type
-				humanPlayer.setHand(true);
-				setStatus("Player 0 double-click on card to lead.");
-				while (null == selected)
-					delay(100);
-			} else {
-				setStatusText("Player " + nextPlayer + " thinking...");
-				delay(thinkingTime);
-				//selected = randomCard(hands[nextPlayer]);
-				int position = nextPlayer;
-				if (arrayNPC.length != 4)
-					position -= 1;
-				selected = arrayNPC[position].getPlayStrategy().selectCard(hands[nextPlayer].getCardList());
-			}
-			// Lead with selected card
-			trick.setView(this, new RowLayout(trickLocation, (trick.getNumberOfCards() + 2) * trickWidth));
-			trick.draw();
-			selected.setVerso(false);
-			// No restrictions on the card being lead
-			lead = (Suit) selected.getSuit();
-			selected.transfer(trick, true); // transfer to trick (includes graphic effect)
-			winner = nextPlayer;
-			winningCard = selected;
-			cardOnTable.add(selected);
-			cardPlayed.add(selected);
-			// End Lead
-			for (int j = 1; j < nbPlayers; j++) {
-				if (++nextPlayer >= nbPlayers)
-					nextPlayer = 0; // From last back to first
-				selected = null;
-				if (0 == nextPlayer && arrayNPC.length != 4) {
-					humanPlayer.setHand(true);
-					setStatus("Player 0 double-click on card to follow.");
-					while (null == selected)
-						delay(100);
-				} else {
-					int position = nextPlayer;
-					if (arrayNPC.length != 4)
-						position -= 1;
-					setStatusText("Player " + nextPlayer + " thinking...");
-					delay(thinkingTime);
-					selected = arrayNPC[position].getPlayStrategy().selectCard(hands[nextPlayer].getCardList() );
-				}
-				// Follow with selected card
-				trick.setView(this, new RowLayout(trickLocation, (trick.getNumberOfCards() + 2) * trickWidth));
-				trick.draw();
-				selected.setVerso(false); // In case it is upside down
-				// Check: Following card must follow suit if possible
-				if (selected.getSuit() != lead && hands[nextPlayer].getNumberOfCardsWithSuit(lead) > 0) {
-					// Rule violation
-					String violation = "Follow rule broken by player " + nextPlayer + " attempting to play " + selected;
-					System.out.println(violation);
-					if (enforceRules)
-						try {
-							throw (new BrokeRuleException(violation));
-						} catch (BrokeRuleException e) {
-							e.printStackTrace();
-							System.out.println("A cheating player spoiled the game!");
-							System.exit(0);
-						}
-				}
-				// End Check
-				selected.transfer(trick, true); // transfer to trick (includes graphic effect)
-				System.out.println("winning: suit = " + winningCard.getSuit() + ", rank = " + winningCard.getRankId());
-				System.out.println(" played: suit = " + selected.getSuit() + ", rank = " + selected.getRankId());
-				if ( // beat current winner with higher card
-				(selected.getSuit() == winningCard.getSuit() && rankGreater(selected, winningCard)) ||
-				// trumped when non-trump was winning
-						(selected.getSuit() == trumps && winningCard.getSuit() != trumps)) {
-					System.out.println("NEW WINNER");
-					winner = nextPlayer;
-					winningCard = selected;
-				}
-				// End Follow
-				cardOnTable.add(selected);
-				cardPlayed.add(selected);
-			}
-			/** initialize lead, winningCard and cardOnTable's value*/
-/**			winningCard = null;
-			lead = null;
-			cardOnTable= new ArrayList<>();
-
-			delay(600);
-			trick.setView(this, new RowLayout(hideLocation, 0));
-			trick.draw();
-			nextPlayer = winner;
-			setStatusText("Player " + nextPlayer + " wins trick.");
-			scores[nextPlayer]++;
-			updateScore(nextPlayer);
-			if (winningScore == scores[nextPlayer])
-				return Optional.of(nextPlayer);
-		}
-		cardPlayed = new ArrayList<>();
-		removeActor(trumpsActor);
-		return Optional.empty();
-	}
-	*/
 	public Whist() throws IOException {
 		super(700, 700, 30);
 		setTitle("Whist.Whist (V" + version + ") Constructed for UofM SWEN30006 with JGameGrid (www.aplu.ch)");
 		setStatusText("Initializing...");
 		initScore();
 		Optional<Integer> winner;
-		Property.readPropertyFile("whist/"+"legal.properties");
+		//Property.readPropertyFile("whist/"+"whist.properties");
+		//Property.readPropertyFile("whist/"+"original.properties");
+		//Property.readPropertyFile("whist/"+"legal.properties");
+		Property.readPropertyFile("whist/"+"smart.properties");
+
 		playerPosition = new int[nbPlayers];
 
 		random = new Random(Property.getProperty("Seed"));
-		System.out.println("system seed:"+ Property.getProperty(("Seed")));
+		//System.out.println("system seed:"+ Property.getProperty(("Seed")));
 		if(Property.ifPropertyExist("winningScore")){
 			winningScore= Property.getProperty(("winningScore"));
 		}
@@ -450,16 +325,15 @@ public class Whist extends CardGame {
 		}
 
 		if(Property.ifPropertyExist("playerPosition")){
-			//String playerPositionString = Property.getPropertyString("playerPosition");
 			playerPosition = Property.getPropertyArray("playerPosition");
 		}
 
 		do {
 			initRound();
-			//winner = playRound();
-			winner = play();
+			winner = playRound();
+			/** update random seed*/
 			turn++;
-			random= new Random(Property.getProperty("Seed")+(int)Math.pow(2,turn));
+			random= new Random(Property.getProperty("Seed")+(int)Math.pow(SEED_CHANGE,turn));
 		} while (!winner.isPresent());
 
 		addActor(new Actor("sprites/gameover.gif"), textLocation);

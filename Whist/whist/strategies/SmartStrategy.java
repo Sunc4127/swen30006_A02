@@ -71,15 +71,6 @@ public class SmartStrategy extends CompositeSmartStrategy {
                 }
 
             }
-
-            /**
-             * there is a legal move
-             *      has a higher legal card
-             *          -> play the highest legal card
-             *      do not have higher legal card
-             *          -> play the lowest legal card
-             *
-             * */
             else{
                 /**has a higher legal card*/
                 if(highestCard.selectCard( legalCards ).getRankId()
