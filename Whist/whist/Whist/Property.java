@@ -36,10 +36,28 @@ public class Property {
         return Integer.parseInt(properties.getProperty(propertyType));
     }
 
+    public static String getPropertyString(String property){
+        return properties.getProperty(property);
+    }
+
+    public static int[] getPropertyArray(String property){
+        String propertyString = properties.getProperty(property);
+        String[] propertyStringArray = propertyString.substring(1,propertyString.length()-1).split(",");
+
+        int[] propertyArray = new int[propertyStringArray.length];
+
+        for(int i = 0; i< propertyStringArray.length; i++){
+            propertyArray[i] = Integer.parseInt(propertyStringArray[i]);
+        }
+
+        return propertyArray;
+    }
+
     public static boolean ifPropertyExist(String property){
 
         return properties.getProperty(property) != null;
     }
+
 
 }
 

@@ -7,11 +7,8 @@ import ch.aplu.jgamegrid.*;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 @SuppressWarnings("serial")
 public class Whist extends CardGame {
@@ -61,7 +58,14 @@ public class Whist extends CardGame {
 	private Location hideLocation = new Location(-500, -500);
 	private Location trumpsActorLocation = new Location(50, 50);
 	private boolean enforceRules = false;
+
 	private int turn = 0;
+	private int[] playerPosition;
+	private static Card selected;
+	private HashMap<Integer, HumanPlayer> humanPlayer ;
+	private INPC[] arrayNPC = null;
+	private HashMap<Integer, INPC> NPCList;
+	private int[] scores = new int[nbPlayers];
 
 	/** cards that had been played */
 	private  static ArrayList<Card> cardPlayed = new ArrayList<>();
@@ -81,8 +85,6 @@ public class Whist extends CardGame {
 		setStatusText(string);
 	}
 
-	private int[] scores = new int[nbPlayers];
-
 	Font bigFont = new Font("Serif", Font.BOLD, 36);
 
 	private void initScore() {
@@ -99,14 +101,9 @@ public class Whist extends CardGame {
 		addActor(scoreActors[player], scoreLocations[player]);
 	}
 
-	private static Card selected;
-	private HumanPlayer humanPlayer;
-
 	public static void setCard(Card card) {
 		selected = card;
 	}
-
-	private INPC[] arrayNPC = null;
 
 	private void shuffleHand(){
 
@@ -131,13 +128,50 @@ public class Whist extends CardGame {
 		/**need to shuffle cards and reduce to nStartCards*/
 		shuffleHand();
 
+		NPCList = new HashMap<>();
+		humanPlayer = new HashMap<>();
+
 		for (int i = 0; i < nbPlayers; i++) {
 			hands[i].sort(Hand.SortType.SUITPRIORITY, true);
 		}
 
+		NPCList = Player.NPCFactory.getInstance().getNPCList();
+
+		if( NPCList.size() < nbPlayers){
+			for(int i = 0; i < nbPlayers; i++ ){
+				if(playerPosition[i] == 3){
+					humanPlayer.put(i,new HumanPlayer(hands[i], selected));
+				}
+			}
+			/**
+			if(Property.ifPropertyExist("playerPosition")){
+				for(int i = 0; i < nbPlayers; i++ ){
+					if(playerPosition[i] == 3){
+						humanPlayer.put(i,new HumanPlayer(hands[i], selected));
+					}
+				}
+			}
+			else{
+				int index = NPCList.size();
+				while(index < nbPlayers){
+					humanPlayer.put(index, new HumanPlayer(hands[index], selected));
+				}
+			}
+			 */
+
+		}
+		for(int i =0; i< NPCList.size();i++){
+			System.out.println("npc "+i+" position"+NPCList.keySet().toArray()[i]);
+		}
+		for(int i = 0; i<humanPlayer.size(); i++){
+			System.out.println("human player"+ i +" position "+ humanPlayer.keySet().toArray()[i]);
+		}
+
+		/**
 		arrayNPC = Player.NPCFactory.getInstance().getNPC();
 		if (arrayNPC.length != 4)
 			humanPlayer = new HumanPlayer(hands[0], selected);
+		*/
 
 		// graphics
 		RowLayout[] layouts = new RowLayout[nbPlayers];
@@ -171,6 +205,113 @@ public class Whist extends CardGame {
 		return winningCard;
 	}
 
+	private Optional<Integer>  play(){
+		// Returns winner, if any
+		// Select and display trump suit
+		trumps = randomEnum(Suit.class);
+		final Actor trumpsActor = new Actor("sprites/" + trumpImage[trumps.ordinal()]);
+		addActor(trumpsActor, trumpsActorLocation);
+		// End trump suit
+		Hand trick;
+		int winner;
+		int nextPlayer = random.nextInt(nbPlayers); // randomly select player to lead for this round
+
+		for(int i = 0; i< nbStartCards; i++){
+			trick = new Hand(deck);
+			selected = null;
+			if( playerPosition[nextPlayer] == 3){
+				humanPlayer.get(nextPlayer).setHand(true);
+				setStatus("Player"+ nextPlayer + " double-click on card to lead.");
+				while (null == selected)
+					delay(100);
+			}
+			else{
+				setStatusText("Player " + nextPlayer + " thinking...");
+				delay(thinkingTime);
+				selected = NPCList.get(nextPlayer).getPlayStrategy().selectCard(hands[nextPlayer].getCardList());
+			}
+			// Lead with selected card
+			trick.setView(this, new RowLayout(trickLocation, (trick.getNumberOfCards() + 2) * trickWidth));
+			trick.draw();
+			selected.setVerso(false);
+			// No restrictions on the card being lead
+			lead = (Suit) selected.getSuit();
+			selected.transfer(trick, true); // transfer to trick (includes graphic effect)
+			winner = nextPlayer;
+			winningCard = selected;
+			cardOnTable.add(selected);
+			cardPlayed.add(selected);
+			// End Lead
+			for(int j = 1; j < nbPlayers; j++){
+				if (++nextPlayer >= nbPlayers)
+					nextPlayer = 0; // From last back to first
+				selected = null;
+				if(playerPosition[nextPlayer] == 3){
+					humanPlayer.get(nextPlayer).setHand(true);
+					setStatus("Player"+ nextPlayer + " double-click on card to lead.");
+					while (null == selected)
+						delay(100);
+				}
+				else{
+					setStatusText("Player " + nextPlayer + " thinking...");
+					delay(thinkingTime);
+					selected = NPCList.get(nextPlayer).getPlayStrategy().selectCard(hands[nextPlayer].getCardList());
+				}
+				trick.setView(this, new RowLayout(trickLocation, (trick.getNumberOfCards() + 2) * trickWidth));
+				trick.draw();
+				selected.setVerso(false); // In case it is upside down
+				// Check: Following card must follow suit if possible
+				if (selected.getSuit() != lead && hands[nextPlayer].getNumberOfCardsWithSuit(lead) > 0) {
+					// Rule violation
+					String violation = "Follow rule broken by player " + nextPlayer + " attempting to play " + selected;
+					System.out.println(violation);
+					if (enforceRules)
+						try {
+							throw (new BrokeRuleException(violation));
+						} catch (BrokeRuleException e) {
+							e.printStackTrace();
+							System.out.println("A cheating player spoiled the game!");
+							System.exit(0);
+						}
+				}
+				// End Check
+				selected.transfer(trick, true); // transfer to trick (includes graphic effect)
+				System.out.println("winning: suit = " + winningCard.getSuit() + ", rank = " + winningCard.getRankId());
+				System.out.println(" played: suit = " + selected.getSuit() + ", rank = " + selected.getRankId());
+				if ( // beat current winner with higher card
+						(selected.getSuit() == winningCard.getSuit() && rankGreater(selected, winningCard)) ||
+								// trumped when non-trump was winning
+								(selected.getSuit() == trumps && winningCard.getSuit() != trumps)) {
+					System.out.println("NEW WINNER");
+					winner = nextPlayer;
+					winningCard = selected;
+				}
+				// End Follow
+				cardOnTable.add(selected);
+				cardPlayed.add(selected);
+			}
+			/** initialize lead, winningCard and cardOnTable's value*/
+			winningCard = null;
+			lead = null;
+			cardOnTable= new ArrayList<>();
+			delay(600);
+			trick.setView(this, new RowLayout(hideLocation, 0));
+			trick.draw();
+			nextPlayer = winner;
+			setStatusText("Player " + nextPlayer + " wins trick.");
+			scores[nextPlayer]++;
+			updateScore(nextPlayer);
+			if (winningScore == scores[nextPlayer])
+				return Optional.of(nextPlayer);
+
+
+		}
+		cardPlayed = new ArrayList<>();
+		removeActor(trumpsActor);
+		return Optional.empty();
+	}
+
+	/**
 	private Optional<Integer> playRound() {
 		// Returns winner, if any
 		// Select and display trump suit
@@ -264,7 +405,7 @@ public class Whist extends CardGame {
 				cardPlayed.add(selected);
 			}
 			/** initialize lead, winningCard and cardOnTable's value*/
-			winningCard = null;
+/**			winningCard = null;
 			lead = null;
 			cardOnTable= new ArrayList<>();
 
@@ -282,7 +423,7 @@ public class Whist extends CardGame {
 		removeActor(trumpsActor);
 		return Optional.empty();
 	}
-
+	*/
 	public Whist() throws IOException {
 		super(700, 700, 30);
 		setTitle("Whist.Whist (V" + version + ") Constructed for UofM SWEN30006 with JGameGrid (www.aplu.ch)");
@@ -290,6 +431,7 @@ public class Whist extends CardGame {
 		initScore();
 		Optional<Integer> winner;
 		Property.readPropertyFile("whist/"+"legal.properties");
+		playerPosition = new int[nbPlayers];
 
 		random = new Random(Property.getProperty("Seed"));
 		System.out.println("system seed:"+ Property.getProperty(("Seed")));
@@ -302,13 +444,22 @@ public class Whist extends CardGame {
 
 		if(Property.ifPropertyExist("nbStartCards")){
 			nbStartCards = Property.getProperty(("nbStartCards"));
+			if(nbStartCards>Rank.values().length){
+				fail("Error in Deck.dealing out.\n" + Rank.values().length*Suit.values().length + " cards in deck. Not enough for" + "\n" + nbPlayers + (nbPlayers > 1 ? " players with " : "player with ") + nbStartCards + (nbStartCards > 1 ? " cards per player." : "card per player.") + "\nApplication will terminate.");
+			}
+		}
+
+		if(Property.ifPropertyExist("playerPosition")){
+			//String playerPositionString = Property.getPropertyString("playerPosition");
+			playerPosition = Property.getPropertyArray("playerPosition");
 		}
 
 		do {
 			initRound();
-			winner = playRound();
+			//winner = playRound();
+			winner = play();
 			turn++;
-			random= new Random(Property.getProperty("Seed")+turn);
+			random= new Random(Property.getProperty("Seed")+(int)Math.pow(2,turn));
 		} while (!winner.isPresent());
 
 		addActor(new Actor("sprites/gameover.gif"), textLocation);
